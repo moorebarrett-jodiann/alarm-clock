@@ -28,14 +28,16 @@ function print(arg) {
 
 /**--------------------------------------------------------------------------- */
 
+// Data
 const liveTime = select('.time');
 const startBtn = select('.start');
-const play = new Audio('./src/audio/alarm.mp3');
-play.type = 'audio/mp3';
+let alarmMessage = select('.message');
 let alarmHour;
 let alarmMinute;
-let alarmMessage = select('.message');
+const play = new Audio('./src/audio/alarm.mp3');
+play.type = 'audio/mp3';
 
+// function that updates clock every 500 milliseconds
 setInterval(function() {
   let today = new Date();
 
@@ -50,10 +52,6 @@ setInterval(function() {
     " : " + 
     currSecond.toString().padStart(2, '0');
 
-    // console.log(currHour);
-    // console.log(alarmHour);
-    // console.log(currMinute);
-    // console.log(alarmMinute);
   if (currHour == alarmHour && currMinute == alarmMinute) {
     setInterval(() => { 
       liveTime.style.color = '#33ab4e';
@@ -64,22 +62,22 @@ setInterval(function() {
 }, 500);
 
 // display the alarm the user has set
-function newAlarm(hour, minute) {
+function displayAlarm(hour, minute) {
   alarmHour = hour;
   alarmMinute = minute;
   let message = `<i class="fa-solid fa-bell"></i> <span>${hour}:</span><span>${minute}</span>`;
   alarmMessage.innerHTML = message;
 }
 
-// generate the alarm the user has set and clear input
-function addAlarm() {
+// set the alarm the user has defined and clear input
+function setAlarm() {
   const userInput = select('.user-input');
   const userInputVal = userInput.value.trim();
   const userInputArr = userInputVal.split(':');
   let hour = parseInt(userInputArr[0]);
   let minute = parseInt(userInputArr[1]);
   if (hour, minute) {
-    newAlarm(hour, minute);
+    displayAlarm(hour, minute);
     userInput.value = "";
   }
 };
@@ -93,10 +91,11 @@ function formatHoursTo12(date) {
 onEvent('click', startBtn, function(event) {
   event.preventDefault();
   const userInput = select('.user-input').value.trim();
-  console.log(userInput);
-  addAlarm();
+  // console.log(userInput);
+  setAlarm();
 });
 
+// when page is reloaded clear input
 onEvent('load', window, () => {
   const userInput = select('.user-input');
   userInput.value = "";
