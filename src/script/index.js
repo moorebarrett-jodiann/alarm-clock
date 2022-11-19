@@ -43,12 +43,22 @@ setInterval(function() {
   let currMinute = today.getMinutes();
   let currSecond = today.getSeconds();
 
-  liveTime.innerHTML = currHour.toString().padStart(2, '0') + " : " + currMinute.toString().padStart(2, '0') + " : " + currSecond.toString().padStart(2, '0');
+  liveTime.innerHTML = 
+    currHour.toString().padStart(2, '0') + 
+    " : " + 
+    currMinute.toString().padStart(2, '0') + 
+    " : " + 
+    currSecond.toString().padStart(2, '0');
+
+    // console.log(currHour);
+    // console.log(alarmHour);
+    // console.log(currMinute);
+    // console.log(alarmMinute);
   if (currHour == alarmHour && currMinute == alarmMinute) {
-    setTimeout(() => { 
+    setInterval(() => { 
       liveTime.style.color = '#33ab4e';
-      start.play();
-    }, 10_000);
+      play.play();
+    });
   }
 
 }, 500);
@@ -80,9 +90,15 @@ function formatHoursTo12(date) {
 }
 
 // on button click make alarm target visible
-onEvent('click', startBtn, () => {
+onEvent('click', startBtn, function(event) {
+  event.preventDefault();
   const userInput = select('.user-input').value.trim();
   console.log(userInput);
   addAlarm();
+});
+
+onEvent('load', window, () => {
+  const userInput = select('.user-input');
+  userInput.value = "";
 });
 

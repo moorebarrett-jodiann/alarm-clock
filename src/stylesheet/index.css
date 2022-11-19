@@ -40,7 +40,6 @@ h2 {
 }
 
 p {
-    margin-top: 20px;
     font-size: 17px;
 }
 
@@ -79,13 +78,14 @@ p {
 .center .clock-container .message-container {
     width: 20%;
     height: 45px;
-    padding: 0 15px;
     background-color: rgba(12, 14, 20, 0.8);
     border-radius: 4px;
     font-size: 17px;
     font-weight: 400;
     color: #fff;
     text-align: center;
+    display: grid;
+    place-items: center;
 }
 
 .center .clock-container .form {
