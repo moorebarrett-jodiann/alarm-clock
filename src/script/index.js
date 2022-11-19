@@ -31,41 +31,45 @@ function print(arg) {
 // Data
 const liveTime = select('.time');
 const startBtn = select('.start');
-let alarmMessage = select('.message');
+const snoozeBtn = select('.snooze');
+const alarmMessage = select('.message');
+
 let alarmHour;
 let alarmMinute;
+
 const play = new Audio('./src/audio/alarm.mp3');
 play.type = 'audio/mp3';
 
-// function that updates clock every 500 milliseconds
+// function that updates clock every 1 second
 setInterval(function() {
   let today = new Date();
-
   let currHour = formatHoursTo12(today);
   let currMinute = today.getMinutes();
   let currSecond = today.getSeconds();
 
   liveTime.innerHTML = 
-    currHour.toString().padStart(2, '0') + 
+    padStart(currHour) + 
     " : " + 
-    currMinute.toString().padStart(2, '0') + 
+    padStart(currMinute) + 
     " : " + 
-    currSecond.toString().padStart(2, '0');
+    padStart(currSecond);
 
   if (currHour == alarmHour && currMinute == alarmMinute) {
-    setInterval(() => { 
-      liveTime.style.color = '#33ab4e';
+    setTimeout(() => { 
       play.play();
+      liveTime.style.color = '#33ab4e';
+      startBtn.style.display = 'none';
+      snoozeBtn.style.display = 'inline-block';
     });
   }
-
-}, 500);
+  
+}, 1000);
 
 // display the alarm the user has set
 function displayAlarm(hour, minute) {
   alarmHour = hour;
   alarmMinute = minute;
-  let message = `<i class="fa-solid fa-bell"></i> <span>${hour}:</span><span>${minute}</span>`;
+  let message = `<i class="fa-solid fa-bell"></i><span>${padStart(hour)} : </span><span>${padStart(minute)}</span>`;
   alarmMessage.innerHTML = message;
 }
 
@@ -73,9 +77,11 @@ function displayAlarm(hour, minute) {
 function setAlarm() {
   const userInput = select('.user-input');
   const userInputVal = userInput.value.trim();
-  const userInputArr = userInputVal.split(':');
+  const userInputArr = userInputVal.split(':'); // split user input into hour and minutes
+
   let hour = parseInt(userInputArr[0]);
   let minute = parseInt(userInputArr[1]);
+  
   if (hour, minute) {
     displayAlarm(hour, minute);
     userInput.value = "";
@@ -87,12 +93,21 @@ function formatHoursTo12(date) {
   return date.getHours() % 12 || 12;
 }
 
+// pad values less than 10 with leading 0
+function padStart(value) {
+  return value.toString().padStart(2, '0');
+}
+
 // on button click make alarm target visible
 onEvent('click', startBtn, function(event) {
   event.preventDefault();
   const userInput = select('.user-input').value.trim();
-  // console.log(userInput);
   setAlarm();
+});
+
+// on button click snooze alarm
+onEvent('click', snoozeBtn, function() {
+  window.location.reload();
 });
 
 // when page is reloaded clear input

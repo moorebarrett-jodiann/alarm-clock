@@ -88,17 +88,21 @@ p {
     place-items: center;
 }
 
+.center .clock-container .message-container .message {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--app-white);
+}
+
+.center .clock-container .message-container .message i {
+    margin-right: 10px;
+}
+
 .center .clock-container .form {
     height: 100%;
     padding: 10px 0px;
     display: grid;
     place-items: center;
-}
-
-.center .clock-container .form .message {
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--app-white);
 }
 
 .center .clock-container .form form input {
@@ -127,8 +131,6 @@ p {
     width: 50%;
     height: 45px;
     margin-left: 10px;
-    border: 1px solid var(--app-blue);
-    background-color: var(--app-blue);
     border-radius: 50px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 26px 30px -10px, rgba(0, 0, 0, 0.1) 0px 16px 10px -10px;
     font-size: 17px;
@@ -139,7 +141,26 @@ p {
     padding: 0 10px;
 }
 
-.center .clock-container .form form button:hover {
+.center .clock-container .form form button.start {
+    border: 1px solid var(--app-blue);
+    background-color: var(--app-blue);
+}
+
+.center .clock-container .form form button.start:hover {
     background-color: var(--app-blue-hover);
+    border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.center .clock-container .form form button.snooze {
+    display: none;
+}
+
+.center .clock-container .form form button.snooze {
+    border: 1px solid var(--app-green);
+    background-color: var(--app-green);
+}
+
+.center .clock-container .form form button.snooze:hover {
+    background-color: var(--app-green-hover);
     border: 1px solid rgba(255, 255, 255, .25);
 }
