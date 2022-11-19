@@ -43,7 +43,7 @@ setInterval(function() {
   let currMinute = today.getMinutes();
   let currSecond = today.getSeconds();
 
-  liveTime.innerHTML = currHour + ":" + currMinute + ":" + currSecond;
+  liveTime.innerHTML = currHour.toString().padStart(2, '0') + " : " + currMinute.toString().padStart(2, '0') + " : " + currSecond.toString().padStart(2, '0');
   if (currHour == alarmHour && currMinute == alarmMinute) {
     setTimeout(() => { 
       liveTime.style.color = '#33ab4e';

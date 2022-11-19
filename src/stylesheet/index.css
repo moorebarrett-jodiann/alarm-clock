@@ -76,6 +76,18 @@ p {
     color: var(--app-white);
 }
 
+.center .clock-container .message-container {
+    width: 20%;
+    height: 45px;
+    padding: 0 15px;
+    background-color: rgba(12, 14, 20, 0.8);
+    border-radius: 4px;
+    font-size: 17px;
+    font-weight: 400;
+    color: #fff;
+    text-align: center;
+}
+
 .center .clock-container .form {
     height: 100%;
     padding: 10px 0px;
