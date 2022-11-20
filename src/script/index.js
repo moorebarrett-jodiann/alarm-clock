@@ -71,20 +71,30 @@ function displayAlarm(hour, minute) {
   alarmMinute = minute;
   let message = `<i class="fa-solid fa-bell"></i><span>${padStart(hour)} : </span><span>${padStart(minute)}</span>`;
   alarmMessage.innerHTML = message;
+  alarmMessage.classList.remove('error');
 }
 
 // set the alarm the user has defined and clear input
 function setAlarm() {
   const userInput = select('.user-input');
-  const userInputVal = userInput.value.trim();
-  const userInputArr = userInputVal.split(':'); // split user input into hour and minutes
 
-  let hour = parseInt(userInputArr[0]);
-  let minute = parseInt(userInputArr[1]);
+  if(userInput.value !== "") {
+
+    const userInputVal = userInput.value.trim();
+    const userInputArr = userInputVal.split(':'); // split user input into hour and minutes
   
-  if (hour, minute) {
-    displayAlarm(hour, minute);
-    userInput.value = "";
+    let hour = parseInt(userInputArr[0]);
+    let minute = parseInt(userInputArr[1]);
+  
+    if (hour && minute) {
+      displayAlarm(hour, minute);
+      userInput.value = "";
+    }
+
+  } else {
+    let message = `<i class="fa-solid fa-xmark"></i><span>Please set an alarm</span>`;
+    alarmMessage.innerHTML = message;
+    alarmMessage.classList.add('error');
   }
 };
 

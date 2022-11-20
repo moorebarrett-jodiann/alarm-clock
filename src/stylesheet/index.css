@@ -43,6 +43,10 @@ p {
     font-size: 17px;
 }
 
+.error i, .error span {
+    color: var(--app-red);
+}
+
 .flexbox {
     display: flex;
     justify-content: center;
