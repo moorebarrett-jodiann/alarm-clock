@@ -33,6 +33,8 @@ const liveTime = select('.time');
 const startBtn = select('.start');
 const snoozeBtn = select('.snooze');
 const alarmMessage = select('.message');
+const clockForm = select('form');
+const userInput = select('.user-input');
 
 let alarmHour;
 let alarmMinute;
@@ -72,27 +74,32 @@ function displayAlarm(hour, minute) {
   let message = `<i class="fa-solid fa-bell"></i><span>${padStart(hour)} : </span><span>${padStart(minute)}</span>`;
   alarmMessage.innerHTML = message;
   alarmMessage.classList.remove('error');
+  alarmMessage.classList.remove('warn');
 }
 
 // set the alarm the user has defined and clear input
 function setAlarm() {
-  const userInput = select('.user-input');
+  let message = '';
 
   if(userInput.value !== "") {
 
-    const userInputVal = userInput.value.trim();
-    const userInputArr = userInputVal.split(':'); // split user input into hour and minutes
-  
-    let hour = parseInt(userInputArr[0]);
-    let minute = parseInt(userInputArr[1]);
-  
-    if (hour && minute) {
+    if(isTimeValid(userInput)) {
+      const userInputVal = userInput.value.trim();
+      const userInputArr = userInputVal.split(':'); // split user input into hour and minutes
+    
+      let hour = parseInt(userInputArr[0]);
+      let minute = parseInt(userInputArr[1]);
+    
       displayAlarm(hour, minute);
       userInput.value = "";
+    } else {
+      message = `<i class="fa-solid fa-xmark"></i><span>Time invalid</span>`;
+      alarmMessage.innerHTML = message;
+      userInput.classList.add('warn');
     }
 
   } else {
-    let message = `<i class="fa-solid fa-xmark"></i><span>Please set an alarm</span>`;
+    message = `<i class="fa-solid fa-xmark"></i><span>Please set an alarm</span>`;
     alarmMessage.innerHTML = message;
     alarmMessage.classList.add('error');
   }
@@ -103,6 +110,12 @@ function formatHoursTo12(date) {
   return date.getHours() % 12 || 12;
 }
 
+// validate user input
+function isTimeValid(input) {
+  // regex to validate hours and minutes
+  return /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(input.value.trim());
+}
+
 // pad values less than 10 with leading 0
 function padStart(value) {
   return value.toString().padStart(2, '0');
@@ -111,7 +124,6 @@ function padStart(value) {
 // on button click make alarm target visible
 onEvent('click', startBtn, function(event) {
   event.preventDefault();
-  const userInput = select('.user-input').value.trim();
   setAlarm();
 });
 
@@ -122,7 +134,6 @@ onEvent('click', snoozeBtn, function() {
 
 // when page is reloaded clear input
 onEvent('load', window, () => {
-  const userInput = select('.user-input');
   userInput.value = "";
 });
 

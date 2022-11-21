@@ -3,6 +3,7 @@
 :root {
     --app-dark-bg:#1a1d28;
     --app-red:#ff3c57;
+    --app-yellow:#ffd13c;
     --app-green:#33ab4e;
     --app-green-hover:#158f32;
     --app-purple:#833cff;
@@ -45,6 +46,17 @@ p {
 
 .error i, .error span {
     color: var(--app-red);
+}
+
+.center .clock-container .form form input.warn {
+    color: var(--app-yellow);
+    position: relative;
+    animation: shake .1s linear;
+}
+    
+@keyframes shake {
+    0% { left: -5px; }
+    100% { right: -5px; }
 }
 
 .flexbox {
