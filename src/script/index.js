@@ -95,6 +95,7 @@ function setAlarm() {
     } else {
       message = `<i class="fa-solid fa-xmark"></i><span>Time invalid</span>`;
       alarmMessage.innerHTML = message;
+      alarmMessage.classList.add('warn');
       userInput.classList.add('warn');
     }
 
